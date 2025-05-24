@@ -1,0 +1,592 @@
+/* Genel Ayarlar */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f7fa;
+    color: #333;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Giriş Sayfası */
+#login-container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 450px;
+    margin: 50px auto;
+}
+
+#login-header {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px 18px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    transition: border-color 0.3s ease;
+}
+
+.input-group input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Giriş Butonu */
+#login-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 18px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#login-btn a {
+    color: white;
+    text-decoration: none;
+    display: block;
+}
+
+#login-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Kayıt Linki */
+#signup-link {
+    text-align: center;
+    margin-top: 10px;
+}
+
+#signup-link a {
+    color: #007bff;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+#signup-link a:hover {
+    text-decoration: underline;
+}
+
+/* Navbar (Dokunulmadı, senin istediğin gibi) */
+.navbar {
+    background-color: #333;
+    padding: 10px;
+}
+
+.navbar ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar li {
+    margin: 0 15px;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.navbar a:hover {
+    text-decoration: underline;
+}
+
+/* Anasayfa */
+
+/* Anasayfa Ana Konteyner */
+.main-container {
+    padding: 50px 20px;
+    text-align: center;
+    background-color: #f9f9f9;
+    margin-top: 50px;
+}
+
+/* Başlık */
+.main-container h1 {
+    font-size: 40px;
+    color: #333;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+/* Açıklama Paragrafı */
+.main-container > p {
+    font-size: 18px;
+    color: #777;
+    margin-bottom: 40px;
+}
+
+/* Hizmet Seçenekleri Konteyneri */
+.service-options {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+/* Hizmet Kartları */
+.service-item {
+    background-color: #fff;
+    padding: 20px;
+    width: 280px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover efekti */
+.service-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+}
+
+/* Hizmet Başlıkları */
+.service-item h3 {
+    font-size: 22px;
+    color: #333;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+/* Hizmet Açıklamaları */
+.service-item p {
+    font-size: 16px;
+    color: #777;
+    margin-bottom: 20px;
+}
+
+/* Butonlar */
+.service-item button {
+    padding: 12px 25px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Buton içindeki link */
+.service-item button a {
+    color: #fff;
+    text-decoration: none;
+    display: block;
+}
+
+/* Buton hover */
+.service-item button:hover {
+    background-color: #0056b3;
+}
+
+/* Yakında Hizmetler için stil */
+.coming-soon {
+    opacity: 0.7;
+    pointer-events: none; /* Tıklanabilirliği kapatır */
+}
+
+/* Yakında Hizmet Başlıkları ve Açıklamaları */
+.coming-soon h3 {
+    color: #555;
+}
+
+.coming-soon p em {
+    color: #888;
+    font-style: italic;
+}
+
+/* Servis resimleri */
+.service-img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+/* Hizmet Seçim Sayfası */
+.randevu-options {
+    background-color: #fff;
+    padding: 30px;
+    max-width: 700px;
+    margin: 30px auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.service-group {
+    margin-bottom: 20px;
+}
+
+select {
+    width: 100%;
+    padding: 12px 18px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    transition: border-color 0.3s ease;
+}
+
+select:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.service-item {
+    margin: 10px 0;
+    font-size: 16px;
+}
+
+input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+h2#total-price-container {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    margin-top: 20px;
+}
+
+/* Randevu Butonu */
+button {
+    padding: 12px 30px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 18px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Kayıt Sayfası */
+#signup-container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 450px;
+    margin: 50px auto;
+}
+
+#signup-header {
+    font-size: 28px;
+    margin-bottom: 25px;
+    text-align: center;
+    color: #333;
+    font-weight: bold;
+}
+
+.input-group {
+    margin-bottom: 25px;
+}
+
+.input-group label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px 18px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    transition: border-color 0.3s ease;
+}
+
+.input-group input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Kayıt Butonu */
+#signup-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 18px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#signup-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Giriş Linki */
+#login-link {
+    text-align: center;
+    margin-top: 10px;
+}
+
+#login-link a {
+    color: #007bff;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+#login-link a:hover {
+    text-decoration: underline;
+}
+
+/* Randevu Bilgileri */
+#randevu-bilgileri {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}
+
+#randevu-bilgileri p {
+    font-size: 16px;
+    margin: 10px 0;
+}
+
+/* Ödeme Bilgileri */
+.payment-info {
+    background-color: #f4f4f4;
+    padding: 25px;
+    border-radius: 10px;
+}
+
+.payment-info input {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.payment-info button {
+    padding: 12px;
+    width: 100%;
+    background-color: #007bff;
+    color: white;
+    font-size: 18px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.payment-info button:hover {
+    background-color: #0056b3;
+}
+
+/* İletişim Sayfası */
+.contact-page {
+    max-width: 1000px;
+    margin: 50px auto;
+    padding: 40px 20px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Başlıklar ve Açıklamalar */
+.contact-info {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.contact-info h1 {
+    font-size: 36px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.contact-info h2 {
+    font-size: 22px;
+    color: #444;
+    margin-top: 30px;
+}
+
+.contact-info p {
+    font-size: 18px;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+/* İletişim Formu */
+.contact-form {
+    max-width: 600px;
+    margin: 0 auto 50px;
+    background-color: #f9f9f9;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.contact-form h2 {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 25px;
+    color: #333;
+}
+
+.contact-form label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: #555;
+}
+
+.contact-form input, .contact-form textarea {
+    width: 100%;
+    padding: 12px 15px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    resize: vertical;
+    transition: border-color 0.3s ease;
+}
+
+.contact-form input:focus, .contact-form textarea:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.contact-form button {
+    background-color: #007bff;
+    color: white;
+    padding: 15px;
+    font-size: 18px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s ease;
+}
+
+.contact-form button:hover {
+    background-color: #0056b3;
+}
+
+/* Footer */
+footer {
+    background-color: #222;
+    padding: 30px 20px;
+    color: #fff;
+    text-align: center;
+}
+
+footer .social-links {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+footer .social-links a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: color 0.3s;
+}
+
+footer .social-links a:hover {
+    color: #f4a261;
+}
+
+footer .social-links img {
+    width: 24px;
+    height: 24px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+footer p {
+    font-size: 14px;
+    color: #ccc;
+}
+
+
+@media (max-width: 768px) {
+  .service-options {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .service-item {
+    width: 90%;
+    margin-bottom: 20px;
+  }
+}
+
+:root {
+  --primary-color: #007bff;
+  --primary-hover: #0056b3;
+  --text-color: #333;
+  --background-color: #f4f7fa;
+  --border-radius: 8px;
+}
+
+button, .input-group input, select {
+  transition: all 0.3s ease;
+}
+
+button:focus, .input-group input:focus, select:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}

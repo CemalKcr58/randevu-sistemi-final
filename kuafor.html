@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Kuaför Randevu Sistemi</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <style>
+    /* Harita yüksekliği için */
+    #map { height: 400px; margin-bottom: 20px; }
+    #details { display: none; margin-top: 20px; }
+    label { display: block; margin: 8px 0; }
+  </style>
+</head>
+<body>
+  <h1>İstanbul Avrupa Yakası - Kuaför Haritası</h1>
+  <div id="map"></div>
+
+  <div id="details">
+    <h2 id="barberName"></h2>
+    <form id="appointmentForm">
+      <div id="servicesContainer"></div>
+
+      <label>
+        Randevu Tarihi:
+        <input type="date" id="dateInput" required />
+      </label>
+
+      <label>
+        Randevu Saati:
+        <select id="timeInput" required>
+          <!-- Saat seçenekleri buraya JS ile eklenecek -->
+        </select>
+      </label>
+
+      <p><strong>Toplam Tutar:</strong> <span id="totalPrice">0</span> TL</p>
+      <button type="submit">Randevuyu Al</button>
+    </form>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    // Harita ayarları
+    const map = L.map('map').setView([41.040, 28.986], 11);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap katkıda bulunanlar'
+    }).addTo(map);
+
+    // Kuaför listesi
+    const kuafors = [
+      {
+        name: "Beşiktaş Vip Kuaför",
+        location: [41.043, 29.008],
+        services: {
+          "Saç Kesimi": 150,
+          "Saç Boyama": 200,
+          "Fön": 70,
+          "Saç Bakımı": 180,
+          "Manikür": 90,
+          "Pedikür": 100
+        }
+      },
+      {
+        name: "Şişli Modern Kuaför",
+        location: [41.061, 28.987],
+        services: {
+          "Saç Kesimi": 130,
+          "Saç Renklendirme": 220,
+          "Yüz Maskesi": 120,
+          "Kaş Tasarımı": 80,
+          "Makyaj": 150
+        }
+      },
+      {
+        name: "Bakırköy Elegant Kuaför",
+        location: [40.975, 28.851],
+        services: {
+          "Saç Kesimi": 140,
+          "Çocuk Saç Kesimi": 100,
+          "Saç Şekillendirme": 110,
+          "Manikür": 85,
+          "Pedikür": 95
+        }
+      },
+      {
+        name: "Kağıthane Deluxe Kuaför",
+        location: [41.077, 28.948],
+        services: {
+          "Saç Kesimi": 160,
+          "Saç Boyama": 210,
+          "Saç Bakımı": 170,
+          "Makyaj": 160,
+          "Yüz Maskesi": 130
+        }
+      }
+    ];
+
+    // Elementler
+    const barberNameEl = document.getElementById("barberName");
+    const servicesContainer = document.getElementById("servicesContainer");
+    const totalPriceEl = document.getElementById("totalPrice");
+    const detailsEl = document.getElementById("details");
+    const form = document.getElementById("appointmentForm");
+    const dateInput = document.getElementById("dateInput");
+    const timeInput = document.getElementById("timeInput");
+
+    // Çalışma saatleri 09:00 - 21:00, 1 saat aralıklarla
+    const workingHours = [];
+    for(let h = 9; h <= 21; h++) {
+      workingHours.push(h.toString().padStart(2, '0') + ":00");
+    }
+
+    // Dolu randevular örnek (tarih: dolu saatler)
+    const bookedSlots = {
+      "2025-05-25": ["09:00", "10:00", "15:00"],
+      "2025-05-26": ["11:00", "14:00", "18:00"],
+      "2025-05-27": ["09:00", "13:00", "16:00", "20:00"],
+      // İstersen ekleyebilirsin
+    };
+
+    // Minimum tarih bugünden itibaren olsun
+    const today = new Date().toISOString().split('T')[0];
+    dateInput.setAttribute('min', today);
+
+    function showBarberDetails(kuafor) {
+      barberNameEl.textContent = kuafor.name;
+      servicesContainer.innerHTML = '';
+      totalPriceEl.textContent = '0';
+
+      Object.entries(kuafor.services).forEach(([name, price]) => {
+        const label = document.createElement("label");
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.name = "service";
+        checkbox.value = name;
+        checkbox.dataset.price = price;
+        checkbox.addEventListener("change", updateTotal);
+
+        label.appendChild(checkbox);
+        label.append(` ${name} - ${price} TL`);
+        servicesContainer.appendChild(label);
+      });
+
+      detailsEl.style.display = "block";
+
+      // Randevu için tarih ve saat seçeneklerini güncelle
+      dateInput.value = today;
+      updateTimeOptions();
+    }
+
+    function updateTotal() {
+      const checkboxes = document.querySelectorAll('input[name="service"]:checked');
+      let total = 0;
+      checkboxes.forEach(cb => total += Number(cb.dataset.price));
+      totalPriceEl.textContent = total;
+    }
+
+    // Tarih seçildiğinde dolu saatlere göre saat seçeneklerini güncelle
+    function updateTimeOptions() {
+      const selectedDate = dateInput.value;
+      timeInput.innerHTML = '';
+
+      const doluSaatler = bookedSlots[selectedDate] || [];
+
+      workingHours.forEach(hour => {
+        const option = document.createElement('option');
+        option.value = hour;
+        option.textContent = hour;
+        if(doluSaatler.includes(hour)) {
+          option.disabled = true;
+          option.textContent += " (DOLU)";
+        }
+        timeInput.appendChild(option);
+      });
+
+      // Tüm saatler doluysa uyarı
+      if(timeInput.querySelectorAll('option:not([disabled])').length === 0) {
+        const option = document.createElement('option');
+        option.textContent = "Seçilebilir saat yok";
+        option.disabled = true;
+        timeInput.appendChild(option);
+      }
+    }
+
+    // Tarih değiştiğinde saat seçeneklerini yenile
+    dateInput.addEventListener('change', updateTimeOptions);
+
+    // Randevu form gönderme
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const date = dateInput.value;
+      const time = timeInput.value;
+      const selectedServices = Array.from(document.querySelectorAll('input[name="service"]:checked'))
+        .map(cb => cb.value);
+      const total = totalPriceEl.textContent;
+
+      if (selectedServices.length === 0) {
+        alert("Lütfen en az bir hizmet seçin.");
+        return;
+      }
+
+      if (!time || timeInput.querySelector(`option[value="${time}"]`)?.disabled) {
+        alert("Lütfen geçerli bir saat seçin.");
+        return;
+      }
+
+      // Alert kaldırıldı, direkt randevu.html'ye yönlendiriliyor
+      window.location.href = "randevu.html";
+    });
+
+    // Harita üzerine marker ekleme ve tıklama olayı
+    kuafors.forEach(kuafor => {
+      const marker = L.marker(kuafor.location).addTo(map);
+      marker.bindPopup(`<strong>${kuafor.name}</strong><br><em>Hizmetleri görmek için tıklayın</em>`);
+      marker.on("click", () => showBarberDetails(kuafor));
+    });
+
+    // Sayfa yüklendiğinde ilk kuaförü göster
+    window.addEventListener('load', () => {
+      showBarberDetails(kuafors[0]);
+    });
+  </script>
+</body>
+</html>

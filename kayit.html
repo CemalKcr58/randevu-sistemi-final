@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="signup-container" id="signup-container">
+        <h2 id="signup-header">Hesap Oluştur</h2>
+        <form method="post" id="signup-form" onsubmit="return validateForm()">
+            <div class="input-group" id="name-group">
+                <label for="name" id="name-label">Ad Soyad</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="input-group" id="birthdate-group">
+                <label for="birthdate" id="birthdate-label">Doğum Tarihi</label>
+                <input type="date" id="birthdate" name="birthdate" required>
+            </div>
+            <div class="input-group" id="email-group">
+                <label for="email" id="email-label">E-posta</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="input-group" id="password-group">
+                <label for="password" id="password-label">Şifre</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="input-group" id="confirm-password-group">
+                <label for="confirm-password" id="confirm-password-label">Şifreyi Tekrarla</label>
+                <input type="password" id="confirm-password" name="confirm-password" required>
+            </div>
+            <div id="age-error" style="color: red; display: none;">Yaşınız 18'den küçük olduğu için kayıt olamazsınız.</div>
+            <button type="submit" class="btn" id="signup-btn">Kaydol</button>
+            <div class="login-link" id="login-link">
+                <p>Zaten hesabınız var mı? <a href="login.html"><a href="index.html">Giriş Yap</a></p>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function validateForm() {
+            // Doğum tarihi
+            var birthdate = document.getElementById("birthdate").value;
+            var birthDateObject = new Date(birthdate);
+            var age = new Date().getFullYear() - birthDateObject.getFullYear();
+
+            // Yaş kontrolü
+            if (age < 18) {
+                document.getElementById("age-error").style.display = "block";
+                return false; // Formu göndermemek için false döndür
+            }
+
+            // Şifre doğrulama
+            var password = document.getElementById("password").value;
+            var confirmPassword = document.getElementById("confirm-password").value;
+            if (password !== confirmPassword) {
+                alert("Şifreler uyuşmuyor!");
+                return false; // Formu göndermemek için false döndür
+            }
+
+            return true; // Form doğruysa gönder
+        }
+    </script>
+   
+</body>
+</html>

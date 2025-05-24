@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Ödeme</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .main-container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 30px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        #randevu-bilgileri p {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+
+        .payment-info {
+            margin-top: 40px;
+        }
+
+        .payment-info h3 {
+            margin-bottom: 15px;
+        }
+
+        .payment-info input {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        button {
+            margin-top: 20px;
+            width: 100%;
+            padding: 14px;
+            background-color: #28a745;
+            color: white;
+            font-size: 18px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <h1>Ödeme Sayfası</h1>
+        
+        <div id="randevu-bilgileri">
+            <p><strong>Hizmetler:</strong> <span id="show-services">Belirtilmedi</span></p>
+            <p><strong>Tarih:</strong> <span id="show-date">--/--/----</span></p>
+            <p><strong>Saat:</strong> <span id="show-time">--:--</span></p>
+            <p><strong>Toplam:</strong> <span id="show-total">0</span> TL</p>
+        </div>
+
+        <div class="payment-info">
+            <h3>Kart Bilgileri</h3>
+            <input type="text" id="card-name" placeholder="Ad Soyad" required>
+            <input type="text" id="card-number" placeholder="Kart Numarası (16 haneli)" required>
+            <input type="month" id="expiry-date" required>
+            <input type="text" id="cvv" placeholder="CVV (3 haneli)" maxlength="4" required>
+            <button onclick="submitPayment()">Ödemeyi Tamamla</button>
+        </div>
+    </div>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const defaultValue = (value, fallback) => value ? value : fallback;
+
+        document.getElementById("show-services").textContent = defaultValue(params.get("services"), "Saç Kesimi");
+        document.getElementById("show-date").textContent = defaultValue(params.get("date"), "2025-05-25");
+        document.getElementById("show-time").textContent = defaultValue(params.get("time"), "14:00");
+        document.getElementById("show-total").textContent = defaultValue(params.get("total"), "150");
+
+        function submitPayment() {
+            const name = document.getElementById("card-name").value.trim();
+            const number = document.getElementById("card-number").value.trim();
+            const expiry = document.getElementById("expiry-date").value;
+            const cvv = document.getElementById("cvv").value.trim();
+
+            if (!name || !number || !expiry || !cvv) {
+                alert("Lütfen tüm alanları eksiksiz doldurun.");
+                return;
+            }
+
+            // Basit kontrol örneği (isteğe bağlı daha fazlası eklenebilir)
+            if (number.length !== 16 || isNaN(number)) {
+                alert("Geçerli bir kart numarası girin (16 haneli).");
+                return;
+            }
+
+            if (cvv.length < 3 || isNaN(cvv)) {
+                alert("Geçerli bir CVV girin.");
+                return;
+            }
+
+            alert("Ödeme başarılı! Randevunuz oluşturuldu.");
+            window.location.href = "tesekkur.html";
+        }
+    </script>
+</body>
+</html>

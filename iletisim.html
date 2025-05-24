@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <title>İletişim - Kuaför Randevu Sistemi</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <ul>
+      <li><a href="Anasayfa.php">Anasayfa</a></li>
+      <li><a href="randevularim.html">Randevularım</a></li>
+      <li><a href="iletisim.html">İletişim</a></li>
+    </ul>
+  </nav>
+
+  <!-- Sayfa Konteyneri -->
+  <div class="contact-page">
+
+    <!-- Başlık ve Açıklama -->
+    <div class="contact-info">
+      <h1>Bizimle İletişime Geçin</h1>
+      <p>Her türlü soru, öneri ve geri bildirimleriniz için bizimle iletişime geçebilirsiniz.</p>
+      
+      <h2>Kurucumuzdan Mesaj:</h2>
+      <p>Bu sistem, saç bakımı ve güzellik ihtiyaçlarınıza hızlı ve kaliteli çözümler sunmak için tasarlanmıştır.</p>
+      <p>Şuan gelişim aşamasındayız sizlerinde desteğiyle daha çok büyüyeceğiz</p>
+      <p>- Cemal Koçer, Kurucu</p>
+    </div>
+
+    <!-- İletişim Formu -->
+    <div class="contact-form">
+      <h2>Mesaj Gönderin</h2>
+      <form action="mailto:info@kuaforrandevu.com" method="post" enctype="text/plain">
+        <label for="name">Adınız Soyadınız:</label>
+        <input type="text" id="name" name="name" required />
+
+        <label for="email">E-posta Adresiniz:</label>
+        <input type="email" id="email" name="email" required />
+
+        <label for="message">Mesajınız:</label>
+        <textarea id="message" name="message" rows="5" required></textarea>
+
+        <button type="submit">Gönder</button>
+      </form>
+    </div>
+
+  </div>
+
+  <!-- Footer Sosyal Medya -->
+  <footer>
+    <div class="social-links">
+      <a href="https://www.instagram.com" target="_blank">
+        <img src="images/download.jpg" alt="Instagram" /> Instagram
+      </a>
+      <a href="https://www.twitter.com" target="_blank">
+        <img src="images/download.png" alt="Twitter" /> Twitter
+      </a>
+      <a href="mailto:info@kuaforrandevu.com">
+        <img src="images/yeni/download.jpg" alt="Mail" /> info@kuaforrandevu.com
+      </a>
+    </div>
+    <p>&copy; 2025 Kuaför Randevu Sistemi | Tüm Hakları Saklıdır.</p>
+  </footer>
+
+</body>
+</html>
